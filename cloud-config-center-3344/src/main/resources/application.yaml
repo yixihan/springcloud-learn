@@ -1,0 +1,43 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name:  cloud-config-center #注册进Eureka服务器的微服务名
+  cloud:
+    config:
+      server:
+        git:
+#          uri: git@github.com:yixihan/springcloud-learn-config.git #GitHub上面的git仓库名字
+          uri : https://github.com/yixihan/springcloud-learn-config.git
+          ####搜索目录
+          search-paths:
+            - springcloud-learn-config
+#          username: yixihan
+#          password: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCkGOcnEDQ+wtoXxjdXhzhaV0aEDQicV527scZLxHulm9q0MU7KCKNstTEj1fLIqkUyArGHOEtLYFW5JA7QHOLw7WgndcAOzjIdGVn7iwEIh4MikzWiQgYuvSHQM951kEHZFPUTscj/qNJ0QYxgrpEKTOD462NJ7bJJu9msIyyP3xDEpq6VJZ+OdIZhG5uXvRoZ/CX1/vRl1ZHnEVmCjpJLUs0zddf4mEttoswO/HuhStYlOISMuEU/zaLhTRKcRlhH9OdbGPoqewsC8Lgykkvic/zNsygc7/YjSTG+/7DOCo/nBVngHQoDeKhaZy6qcYgZ92qKIcAYx3PFwRm9BCH3r3QUyNzFmeQcsr5LloTtYIMDHlJJ79d86L3063EcJp1dbklzL36ZdiDxQgM1072gIBMWsafK6egplSkr3CCdNywjy3fdhrw87JBnYqtlI2UKiH7K+yY65f63Qd0SZt/bjRXdwMI1BMeHNgjB1BSKEzr5/1zZBUyWP8bdWaVxQZ0= yixihan20010617@gmail.com
+      ####读取分支
+      label: master
+
+  #rabbitmq相关配置
+  rabbitmq:
+    host: 175.24.229.41
+    port: 5672
+    username: admin
+    password: 123
+
+#服务注册到eureka地址
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+
+
+##rabbitmq相关配置,暴露bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
